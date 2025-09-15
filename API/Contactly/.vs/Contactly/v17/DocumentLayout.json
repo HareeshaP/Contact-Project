@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Training\\Web API\\API\\Contactly\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|f:\\training\\web api\\api\\contactly\\contactly\\controllers\\contactscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|solutionrelative:contactly\\controllers\\contactscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|f:\\training\\web api\\api\\contactly\\contactly\\data\\contactlydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|solutionrelative:contactly\\data\\contactlydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|f:\\training\\web api\\api\\contactly\\contactly\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|solutionrelative:contactly\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|f:\\training\\web api\\api\\contactly\\contactly\\models\\addcontactrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C178A6D-2A51-4F07-BC53-2DFACDEB41A9}|Contactly\\Contactly.csproj|solutionrelative:contactly\\models\\addcontactrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ContactsController.cs",
+              "DocumentMoniker": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Controllers\\ContactsController.cs",
+              "RelativeDocumentMoniker": "Contactly\\Controllers\\ContactsController.cs",
+              "ToolTip": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Controllers\\ContactsController.cs",
+              "RelativeToolTip": "Contactly\\Controllers\\ContactsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T10:01:06.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Program.cs",
+              "RelativeDocumentMoniker": "Contactly\\Program.cs",
+              "ToolTip": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Program.cs",
+              "RelativeToolTip": "Contactly\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T09:45:58.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ContactlyDbContext.cs",
+              "DocumentMoniker": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Data\\ContactlyDbContext.cs",
+              "RelativeDocumentMoniker": "Contactly\\Data\\ContactlyDbContext.cs",
+              "ToolTip": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Data\\ContactlyDbContext.cs",
+              "RelativeToolTip": "Contactly\\Data\\ContactlyDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T09:42:27.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddContactRequestDTO.cs",
+              "DocumentMoniker": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Models\\AddContactRequestDTO.cs",
+              "RelativeDocumentMoniker": "Contactly\\Models\\AddContactRequestDTO.cs",
+              "ToolTip": "F:\\Training\\Web API\\API\\Contactly\\Contactly\\Models\\AddContactRequestDTO.cs",
+              "RelativeToolTip": "Contactly\\Models\\AddContactRequestDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T10:12:32.929Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
