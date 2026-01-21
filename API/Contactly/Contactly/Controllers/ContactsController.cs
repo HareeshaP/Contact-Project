@@ -23,7 +23,7 @@ namespace Contactly.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddContact(AddContactRequestDTO request)
+        public async Task<IActionResult> AddContact([FromBody] AddContactRequestDTO request)
         {
             var domainModelContact = new Contact
             {
@@ -33,10 +33,13 @@ namespace Contactly.Controllers
                 Phone = request.Phone,
                 Favorite = request.Favorite
             };
-            dbContext.Contacts.Add(domainModelContact);
-            dbContext.SaveChanges();
+            await dbContext.Contacts.AddAsync(domainModelContact);
+            await dbContext.SaveChangesAsync();
 
-            return Ok(domainModelContact);
+            return CreatedAtAction(
+                nameof(GetAllContacts),
+                new { id = domainModelContact.Id},
+                domainModelContact);
         }
 
         [HttpDelete]

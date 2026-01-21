@@ -4,29 +4,49 @@
     <form (ngSubmit)="onFormSubmit()" [formGroup]="contactsForm" class="px-4">
       <h1 class="py-10 font-extrabold text-5xl">Contactly</h1>
 
+      <!-- Name -->
       <div class="mt-2">
         <label for="name" class="font-bold">Name</label>
         <input type="text" class="w-full p-2 border-2 rounded-sm mt-2" formControlName="name">
+        <p class="text-red-500 text-sm" *ngIf="contactsForm.controls.name.touched && contactsForm.controls.name.invalid">
+          Name is required
+        </p>
       </div>
 
+      <!-- Email -->
       <div class="mt-2">
         <label for="email" class="font-bold">Email</label>
         <input type="email" class="w-full p-2 border-2 rounded-sm mt-2" formControlName="email">
+        <p class="text-red-500 text-sm" *ngIf="contactsForm.controls.email.touched && contactsForm.controls.email.invalid">
+          Enter a valid email
+        </p>
       </div>
 
+      <!-- Phone -->
       <div class="mt-2">
         <label for="phone" class="font-bold">Phone</label>
         <input type="text" class="w-full p-2 border-2 rounded-sm mt-2" formControlName="phone">
+        <p class="text-red-500 text-sm" *ngIf="contactsForm.controls.phone.touched && contactsForm.controls.phone.invalid">
+         Phone number is required 
+        </p>
       </div>
 
+      <!-- Favorite -->
       <div class="mt-2">
         <label for="favorite" class="flex items-center font-bold"></label>
         <input type="checkbox" formControlName="favorite" class="h-4 w-4">
         <span> Favorite</span>
       </div>
 
+      <!-- Error -->
+       <p class="text-red-600 mt-2" *ngIf="errorMessage">
+        {{errorMessage}}
+       </p>
+
+       <!-- Submit -->
       <div class="mt-2">
-        <button type="submit" class="bg-slate-800 text-white px-4 py-2 rounded-sm w-full">Add</button>
+        <button type="submit" class="bg-slate-800 text-white px-4 py-2 rounded-sm w-full"
+        [disabled]="contactsForm.invalid || isSubmitting">{{isSubmitting ? 'Adding...' : 'Add Contact'}}</button>
       </div>
     </form>
 
