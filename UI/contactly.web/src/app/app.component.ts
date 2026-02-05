@@ -1,23 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterOutlet, ɵEmptyOutletComponent } from '@angular/router';
 import { Contact } from '../models/conatcts.model';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf, NgClass, NgForOf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AsyncPipe, FormsModule, ReactiveFormsModule, NgIf],
+  imports: [RouterOutlet, AsyncPipe, FormsModule, ReactiveFormsModule, NgIf, NgForOf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  ngOnInit(): void {
+    this.loadContacts();
+  }
   http = inject(HttpClient);
 
+  contacts$!: Observable<Contact[]>;
+  isLoading = false;
   isSubmitting = false;
-  errorMessage = '';
+  formErrorMessage = '';
+  loadErrorMessage = '';
 
   contactsForm = new FormGroup({
     name: new FormControl<string>('', {
@@ -32,8 +39,24 @@ export class AppComponent {
     favorite: new FormControl<boolean>(false),
   })
 
-  contacts$ = this.getConatcts();
+  //contacts$ = this.getConatcts();
   
+  loadContacts() {
+    this.isLoading=true;
+    this.loadErrorMessage = '';
+
+    this.contacts$ = this.http
+      .get<Contact[]>('https://localhost:7079/api/Contacts');
+
+    this.contacts$.subscribe({
+      next: () => this.isLoading = false,
+      error: () => {
+        this.loadErrorMessage = 'Failed to load contacts';
+        this.isLoading = false;
+      }
+    });
+  }
+
   onFormSubmit() {
     if(this.contactsForm.invalid){
       this.contactsForm.markAllAsTouched();
@@ -41,7 +64,7 @@ export class AppComponent {
     }
 
     this.isSubmitting = true;
-    this.errorMessage='';
+    this.formErrorMessage='';
 
     const addContactRequest = {
       name: this.contactsForm.value.name,
@@ -54,13 +77,14 @@ export class AppComponent {
     .subscribe({
       next: (value) => {
         console.log(value);
+        this.loadContacts();
         this.contacts$ = this.getConatcts();
         this.contactsForm.reset({ favorite: false});
         this.isSubmitting = false;
       },
 
       error: () => {
-        this.errorMessage = 'Failed to add contact. Please try again.';
+        this.formErrorMessage = 'Failed to add contact. Please try again.';
         this.isSubmitting = false;
       }
     });

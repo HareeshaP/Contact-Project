@@ -3,6 +3,7 @@ using Contactly.Models;
 using Contactly.Models.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contactly.Controllers
 {
@@ -16,9 +17,20 @@ namespace Contactly.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public IActionResult GetAllContacts()
+        public async Task<IActionResult> GetAllContacts()
         {
-           var contacts = dbContext.Contacts.ToList();
+           var contacts =  await dbContext.Contacts
+                .OrderByDescending(c => c.Favorite)
+                .ThenBy(c => c.Name)
+                .Select(c => new ContactDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Email = c.Email,
+                    Phone = c.Phone,
+                    Favorite = c.Favorite
+                })
+                .ToListAsync();
             return Ok(contacts);
         }
 
