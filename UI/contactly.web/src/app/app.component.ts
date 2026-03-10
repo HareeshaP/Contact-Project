@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet, ɵEmptyOutletComponent } from '@angular/router';
 import { Contact } from '../models/conatcts.model';
-import { Observable } from 'rxjs';
+import { concatAll, Observable } from 'rxjs';
 import { AsyncPipe, NgIf, NgClass, NgForOf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.loadContacts();
   }
+
+  editingContactId: string | null = null;
   http = inject(HttpClient);
 
   contacts$!: Observable<Contact[]>;
@@ -63,6 +65,8 @@ export class AppComponent implements OnInit{
       return;
     }
 
+    const contactData = this.contactsForm.value;
+
     this.isSubmitting = true;
     this.formErrorMessage='';
 
@@ -73,7 +77,34 @@ export class AppComponent implements OnInit{
       favorite: this.contactsForm.value.favorite
     }
 
-    this.http.post('https://localhost:7079/api/Contacts', addContactRequest)
+    if(this.editingContactId){
+      //EDIT
+      this.http.put(`https://localhost:7079/api/Contacts/${this.editingContactId}`,
+        contactData
+      ).subscribe({
+        next: () => {
+          this.resetForm();
+          this.loadContacts();
+        },
+        error: () => {
+          this.isSubmitting = false;
+        }
+      });
+    } else {
+      // CREATE
+      this.http.post('https://localhost:7079/api/Contacts',
+        contactData
+      ).subscribe({
+        next: () => {
+          this.resetForm();
+          this.loadContacts();
+        },
+        error: () => {
+          this.isSubmitting = false;
+        }
+      });
+    }
+    /*this.http.post('https://localhost:7079/api/Contacts', addContactRequest)
     .subscribe({
       next: (value) => {
         console.log(value);
@@ -87,7 +118,13 @@ export class AppComponent implements OnInit{
         this.formErrorMessage = 'Failed to add contact. Please try again.';
         this.isSubmitting = false;
       }
-    });
+    });*/
+  }
+
+  resetForm() {
+    this.contactsForm.reset({ favorite: false});
+    this.editingContactId = null;
+    this.isSubmitting = false;
   }
 
   onDelete(id: string){
@@ -103,5 +140,16 @@ export class AppComponent implements OnInit{
   private getConatcts(): Observable<Contact[]>{
     return this.http.get<Contact[]>('https://localhost:7079/api/Contacts');
 
+  }
+
+  onEdit(contact: Contact){
+    this.editingContactId = contact.id;
+
+    this.contactsForm.patchValue({
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+      favorite: false
+    });
   }
 }

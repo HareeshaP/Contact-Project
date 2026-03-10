@@ -67,5 +67,22 @@ namespace Contactly.Controllers
             }
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateContact(Guid id, UpdateContactDto dto)
+        {
+            var contact = await dbContext.Contacts.FindAsync(id);
+
+            if (contact == null)
+                return NotFound();
+
+            contact.Name = dto.Name;
+            contact.Email = dto.Email;
+            contact.Phone = dto.Phone;
+
+            await dbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
