@@ -56,16 +56,18 @@ namespace Contactly.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
-        public IActionResult DeleteContact(Guid id)
+        public async Task<IActionResult> DeleteContact(Guid id)
         {
-            var contact = dbContext.Contacts.Find(id);
+            var contact = await dbContext.Contacts.FindAsync(id);
 
-            if(contact is not null)
+            if(contact == null)
             {
-                dbContext.Contacts.Remove(contact);
-                dbContext.SaveChanges();
+                return NotFound();
             }
-            return Ok();
+
+            dbContext.Contacts.Remove(contact);
+            await dbContext.SaveChangesAsync();
+            return NoContent();  // 204 - correct REST Response
         }
 
         [HttpPut("{id}")]

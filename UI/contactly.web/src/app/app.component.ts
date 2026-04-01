@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   }
 
   editingContactId: string | null = null;
+  deletingId: string | null = null;
   http = inject(HttpClient);
 
   contacts$!: Observable<Contact[]>;
@@ -128,13 +129,23 @@ export class AppComponent implements OnInit{
   }
 
   onDelete(id: string){
+    const confirmDelete = confirm('Are you sure you want to delete this contact?');
+    
+    if(!confirmDelete) return;
+
+    this.deletingId = id;
+
     this.http.delete(`https://localhost:7079/api/Contacts/${id}`)
     .subscribe({
       next: (value) => {
-        alert('Item deleted');
-        this.contacts$ = this.getConatcts();
+        this.deletingId = null;
+        this.loadContacts(); //refresh list
+      },
+      error: () => {
+        this.deletingId = null;
+        alert('Failed to delete contact');
       }
-    })
+    });
   }
 
   private getConatcts(): Observable<Contact[]>{
