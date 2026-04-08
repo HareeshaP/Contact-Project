@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet, ɵEmptyOutletComponent } from '@angular/router';
 import { Contact } from '../models/conatcts.model';
 import { concatAll, Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { AsyncPipe, NgIf, NgClass, NgForOf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -15,8 +16,16 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 })
 export class AppComponent implements OnInit{
 
+  searchControl = new FormControl('');
+
   ngOnInit(): void {
     this.loadContacts();
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe(value => {
+        this.loadContacts(value || '');
+      });
   }
 
   editingContactId: string | null = null;
@@ -44,12 +53,16 @@ export class AppComponent implements OnInit{
 
   //contacts$ = this.getConatcts();
   
-  loadContacts() {
+  loadContacts(search: string='') {
     this.isLoading=true;
     this.loadErrorMessage = '';
 
+    const url = search
+    ? `https://localhost:7079/api/Contacts?search=${encodeURIComponent(search)}`
+    : `https://localhost:7079/api/Contacts`;
+
     this.contacts$ = this.http
-      .get<Contact[]>('https://localhost:7079/api/Contacts');
+      .get<Contact[]>(url);
 
     this.contacts$.subscribe({
       next: () => this.isLoading = false,

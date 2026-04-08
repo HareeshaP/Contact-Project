@@ -17,9 +17,18 @@ namespace Contactly.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllContacts()
+        public async Task<IActionResult> GetAllContacts([FromQuery] string? search)
         {
-           var contacts =  await dbContext.Contacts
+            var query = dbContext.Contacts.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.ToLower();
+                query = query.Where(c => c.Name.Contains(search) ||
+                                         (c.Email != null && c.Email.ToLower().Contains(search)) ||
+                                         c.Phone.Contains(search));
+            }
+            var contacts =  await query
                 .OrderByDescending(c => c.Favorite)
                 .ThenBy(c => c.Name)
                 .Select(c => new ContactDto

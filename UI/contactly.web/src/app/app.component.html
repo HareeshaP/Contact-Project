@@ -51,6 +51,15 @@
     </form>
 
   </div>
+
+  <!-- Search Tab -->
+  <div class="p-4">
+    <input type="text" placeholder="Search contacts..."
+      [formControl]="searchControl"
+      class="w-full p-2 border-2 rounded-sm" />
+  </div>
+
+  <!-- Contacts List -->
   <div class="overflow-auto w-[50%]">
     @if(contacts$ | async;as contacts){
       @if(contacts.length > 0){
