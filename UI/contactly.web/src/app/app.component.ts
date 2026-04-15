@@ -176,4 +176,18 @@ export class AppComponent implements OnInit{
       favorite: false
     });
   }
+
+  toggleFavorite(contact: Contact) {
+    this.http.patch(
+      `https://localhost:7079/api/Contacts/${contact.id}/favorite`,
+      {}
+    ).subscribe({
+      next: () => {
+        this.loadContacts(); //refresh list
+      },
+      error: () => {
+        alert('Failed to update favorite');
+      }
+    });
+  }
 }

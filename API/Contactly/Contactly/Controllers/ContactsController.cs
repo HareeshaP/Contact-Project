@@ -95,5 +95,23 @@ namespace Contactly.Controllers
 
             return NoContent();
         }
+
+        [HttpPatch("{id:guid}/favorite")]
+        public async Task<IActionResult> ToggleFavorite(Guid id)
+        {
+            var contact = await dbContext.Contacts.FindAsync(id);
+
+            if (contact == null)
+                return NotFound();
+
+            contact.Favorite = !contact.Favorite;
+            await dbContext.SaveChangesAsync();
+
+            return Ok(new
+            {
+                contact.Id,
+                contact.Favorite
+            });
+        }
     }
 }
