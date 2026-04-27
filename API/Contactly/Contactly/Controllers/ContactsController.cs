@@ -79,19 +79,30 @@ namespace Contactly.Controllers
             return NoContent();  // 204 - correct REST Response
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateContact(Guid id, UpdateContactDto dto)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateContact([FromRoute] Guid id,[FromBody] UpdateContactRequestDto request)
         {
             var contact = await dbContext.Contacts.FindAsync(id);
 
             if (contact == null)
                 return NotFound();
 
-            contact.Name = dto.Name;
-            contact.Email = dto.Email;
-            contact.Phone = dto.Phone;
+            contact.Name = request.Name;
+            contact.Email = request.Email;
+            contact.Phone = request.Phone;
+            contact.Favorite = request.Favorite;
 
             await dbContext.SaveChangesAsync();
+
+            //Map to response DTO
+            var response = new ContactResponseDTO
+            {
+                Id = contact.Id,
+                Name = contact.Name,
+                Email = contact.Email,
+                Phone = contact.Phone,
+                Favorite = contact.Favorite
+            };
 
             return NoContent();
         }
